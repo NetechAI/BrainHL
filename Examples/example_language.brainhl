@@ -1,0 +1,71 @@
+# Red neuronal para procesamiento de lenguaje
+
+# --- Zonas de la red ---
+region entrada_lexica [0.1, 0.1] to [0.1, 0.9]  # Zona para procesamiento de palabras
+region sintaxis [0.3, 0.1] to [0.3, 0.9]      # Zona para procesamiento sintáctico
+region semantica [0.5, 0.1] to [0.5, 0.9]     # Zona para procesamiento semántico
+region contexto [0.7, 0.1] to [0.7, 0.9]      # Zona para memoria de contexto
+region salida [0.9, 0.1] to [0.9, 0.9]        # Zona para generación de salida
+region supervision [0.2, 0.9] to [0.8, 1.0]   # Zona para supervisión del aprendizaje
+
+# --- Poblaciones de neuronas ---
+# Neuronas para procesamiento de palabras
+create 10 neurons of type Palabra in entrada_lexica
+# Neuronas para procesamiento sintáctico
+create 50 neurons of type Sintaxis in sintaxis
+# Neuronas para procesamiento semántico
+create 75 neurons of type Semantica in semantica
+# Neuronas para memoria de contexto
+create 25 neurons of type Contexto in contexto
+# Neuronas para generación de salida (una por cada categoría)
+create 8 neurons of type Salida in salida
+# Neuronas de supervisión
+create 10 neurons of type Supervision in supervision
+
+# --- Conexiones con plasticidad ---
+# Conexiones entre capas con plasticidad para aprendizaje
+connect all Palabra to all Sintaxis with weight range [0.1, 0.5] with plasticity rate 0.01
+connect all Sintaxis to all Semantica with weight range [0.1, 0.5] with plasticity rate 0.01
+connect all Semantica to all Contexto with weight range [0.1, 0.5] with plasticity rate 0.01
+connect all Contexto to all Salida with weight range [0.1, 0.5] with plasticity rate 0.01
+# Conexión con la capa de supervisión
+connect all Salida to all Supervision with weight range [0.1, 0.5] with plasticity rate 0.01
+
+# Conexiones recurrentes para memoria de contexto
+connect all Contexto to all Palabra with weight range [0.1, 0.3]
+connect all Contexto to all Sintaxis with weight range [0.1, 0.3]
+connect all Contexto to all Semantica with weight range [0.1, 0.3]
+
+# Conexiones laterales para procesamiento paralelo
+connect all Sintaxis to all Palabra with weight range [0.1, 0.3]
+connect all Semantica to all Sintaxis with weight range [0.1, 0.3]
+
+# Conexiones de retroalimentación
+connect all Salida to all Contexto with weight range [0.1, 0.3]
+connect all Salida to all Semantica with weight range [0.1, 0.3]
+
+# --- Parámetros adicionales ---
+# Establecer umbrales para las diferentes capas
+set threshold for Palabra to 1.0
+set threshold for Sintaxis to 1.5
+set threshold for Semantica to 2.0
+set threshold for Contexto to 1.2
+set threshold for Salida to 1.8
+
+# Establecer tasas de aprendizaje optimizadas
+set learning rate for Palabra to 0.05
+set learning rate for Sintaxis to 0.03
+set learning rate for Semantica to 0.02
+set learning rate for Contexto to 0.01
+set learning rate for Salida to 0.005
+
+# Configuración de la función de coste
+set cost function to MSE
+set target output range [0.9, 1.0]
+set error threshold 0.1
+
+# Configuración adicional para estabilidad
+set max weight 1.0
+set min weight -1.0
+set max potential 10.0
+set min potential -10.0
