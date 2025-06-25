@@ -1,89 +1,100 @@
-# BrainHL - High-Performance SNN Simulator
+# 🚀 BrainHL – High-Performance Spiking Neural Network (SNN) Simulator
 
 [![Version][version-shield]][version-url]
 [![License][license-shield]][license-url]
 
-**BrainHL** is a high-performance engine for simulating Spiking Neural Networks (SNNs), developed by NetechAI. It combines a powerful C++ core with a user-friendly Python API, allowing for both efficient, large-scale simulations and dynamic, script-based network management.
+**BrainHL** is a blazing-fast simulation engine for **Spiking Neural Networks (SNNs)**, designed by **NetechAI**. Built on a modern C++ core and paired with a clean Python API, BrainHL empowers developers, researchers, and AI hobbyists to build, simulate, and experiment with brain-like architectures using simple, declarative `.brainhl` files.
 
-## Key Features
 
-- **High-Performance Core:** The simulation engine is written in modern C++ for maximum speed and efficiency.
-- **Declarative Language:** Define complex network architectures easily using the simple and intuitive `.brainhl` file format.
-- **Command-Line Interpreter:** Use the standalone `bhl.exe` tool to quickly load and simulate network files.
-- **Python API:** Seamlessly integrate BrainHL into your Python workflows. Create, modify, and simulate networks on the fly.
-- **Easy Installation:** A simple Windows installer gets you up and running in minutes.
 
----
+## ✨ Key Features
 
-## 1. Installation
+* ⚡ **High-Performance C++ Core**
+  Written in optimized C++ for large-scale, real-time neural simulation.
 
-The easiest way to install BrainHL is by using the official installer.
+* 🧠 **Declarative Network Language**
+  Design complete SNNs using minimal code with the `.brainhl` format.
 
-1.  Go to the [**Releases**](https://github.com/NetechAI/BrainHL) page of this repository.
-2.  Download the latest installer, `BrainHL-0.1-Beta-setup.exe`.
-3.  Run the installer. We recommend checking the option **"Add application directory to your system PATH"** to make `bhl.exe` available from any terminal.
+* 🛠️ **Command-Line Interface (`bhl.exe`)**
+  Run simulations instantly without writing a single line of Python.
 
-## 2. Quick Start
+* 🐍 **Python API Integration**
+  Seamlessly embed BrainHL into your Python pipelines for full control.
 
-BrainHL can be used in two primary ways: via the command-line interpreter or as a Python module.
+* 📦 **Easy Setup (Windows Installer)**
+  Quick installer with optional PATH integration—ready in minutes.
 
-### Using the Command-Line (`bhl.exe`)
+* 🧪 **Supports Learning**
+  Includes Hebbian and supervised learning mechanisms for dynamic networks.
 
-This is the simplest way to run a simulation from a file.
+
+## 🔧 Installation
+
+To get started:
+
+1. Head to the [**Releases**](https://github.com/NetechAI/BrainHL/releases) page.
+2. Download `BrainHL-0.1-Beta-setup.exe`.
+3. Run the installer. Check **"Add to PATH"** to access `bhl.exe` globally from your terminal.
+
+
+
+## ⚡ Quick Start
+
+### ➤ Run a Simulation via CLI
 
 ```bash
-# Load and parse a network file
-bhl.exe path/to/your/network.brainhl
+# Run a BrainHL file
+bhl.exe path/to/network.brainhl
 
-# Show help message
+# View help
 bhl.exe --help
 
-# Check version information
+# Display version
 bhl.exe --version
 ```
 
-### Using the Python API
+---
 
-The Python API provides full control over the network for dynamic scripting and integration.
+### ➤ Python Integration Example
 
 ```python
 import brainhl
 
-# Create a network instance
+# Initialize the network and parser
 network = brainhl.DynamicNetwork()
-
-# Create a parser instance
 parser = brainhl.BrainHLParser()
 
-# Load a network from a file
-filepath = "path/to/your/network.brainhl"
-if parser.parse(filepath, network):
-    print(f"Network loaded successfully!")
-    print(f"  - Neurons: {network.getNeuronCount()}")
-    print(f"  - Connections: {len(network.getAllConnections())}")
+# Load a network definition
+if parser.parse("path/to/network.brainhl", network):
+    print("✅ Network loaded!")
+    print(f"Neurons: {network.getNeuronCount()}")
+    print(f"Connections: {len(network.getAllConnections())}")
 else:
-    print("Failed to load network.")
-
-# You can now interact with the network object
-# (e.g., add neurons, connections, run simulation steps, etc.)
+    print("❌ Failed to load network.")
 ```
 
-## 3. The BrainHL Language
+You can now manipulate the network: stimulate neurons, add/remove connections, simulate behavior, and more.
 
-BrainHL uses a simple, human-readable language to define network regions, neurons, and connections. For a complete guide on syntax and commands, please see our detailed documentation:
 
-- **[BrainHL Language Syntax Guide](docs/brainhl_syntax.md)**
 
-## 4. License
+## 📘 BrainHL Language
 
-This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
+BrainHL uses a concise, readable syntax to define neurons, regions, synaptic connections, thresholds, and learning behavior.
 
----
+* 📄 [BrainHL Language Reference](docs/brainhl_syntax.md)
 
-*Copyright (c) 2025 NetechAI*
+
+## 📄 License
+
+BrainHL is released under the **Apache 2.0 License**.
+See the full [LICENSE](LICENSE) for usage and redistribution terms.
+
+
+
+> © 2025 **NetechAI** – Build brains, not boilerplate.
 
 [version-shield]: https://img.shields.io/badge/version-0.1%20Beta-blue.svg
 [version-url]: https://github.com/NetechAI/BrainHL
-
 [license-shield]: https://img.shields.io/badge/License-Apache%202.0-green.svg
 [license-url]: LICENSE
+
