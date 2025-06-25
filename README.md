@@ -1,117 +1,89 @@
-# BrainHL
+# BrainHL - High-Performance SNN Simulator
 
-### Simulate complex neural networks with less than 10 lines of code.
+[![Version][version-shield]][version-url]
+[![License][license-shield]][license-url]
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-
-**BrainHL is a high-performance engine for simulating Spiking Neural Networks (SNNs), designed for speed, flexibility, and ease of use. It combines a powerful C++ backend with a simple, declarative language to bridge the gap between neuroscience concepts and computational modeling.**
-
-## Core Philosophy
-
-BrainHL is built on the principle of **Separation of Concerns**. The project is composed of two main parts:
-
-1.  **The C++ Engine:** A highly-optimized, standalone library that handles the heavy lifting of creating, connecting, and simulating large-scale neural networks. It is completely independent of any other language.
-2.  **The Consumers:** Interfaces that use the C++ engine. This includes:
-    *   A **command-line interpreter** (`brainhl.exe`) for running simulations directly.
-    *   **Python bindings** (`.pyd`) to allow for rapid prototyping, training, and integration with the rich ecosystem of data science libraries.
-
-This architecture means you can design a network once and simulate it anywhere, from a high-performance computing cluster to an embedded system in a robot.
+**BrainHL** is a high-performance engine for simulating Spiking Neural Networks (SNNs), developed by NetechAI. It combines a powerful C++ core with a user-friendly Python API, allowing for both efficient, large-scale simulations and dynamic, script-based network management.
 
 ## Key Features
 
-*   **High-Performance C++ Core:** The simulation backend is written in modern C++ for maximum performance and efficiency.
-*   **Declarative Syntax (`.brainhl`):** Define entire network architectures using a simple, human-readable language. Describe regions, neuron populations, and connection strategies, and let the engine handle the implementation.
-*   **Dynamic Topologies:** The `DynamicNetwork` class allows for networks that can change and grow during the simulation.
-*   **Standalone Interpreter:** Run simulations natively with the compiled `brainhl.exe`, no other dependencies required.
-*   **Python Integration:** Optional Python bindings provide a high-level interface to control the simulation, feed it data, and analyze the results.
-
-## Getting Started
-
-To get started, you will need a C++ compiler (with C++17 support) and CMake. 
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/your-username/BrainHL.git
-    cd BrainHL
-    ```
-
-2.  **Configure and build the project:**
-    ```bash
-    mkdir build
-    cd build
-    cmake ..
-    cmake --build .
-    ```
-
-3.  **Run a simulation:**
-    After building, you can find the interpreter in the `Release` or `Debug` folder.
-    ```bash
-    ./Release/brainhl.exe ../examples/your_example.brainhl
-    ```
-
-BrainHL is a sandbox for innovation. While the included example is a simple language classifier, the platform is designed for much more:
-
-- **Custom Neural Classifiers:** Solve unique classification problems with bespoke architectures.
-- **Associative Memory Models:** Simulate systems that can store and retrieve information based on partial cues.
-- **Spiking Neural Network (SNN) Research:** Extend the C++ core to model more biologically realistic, event-driven neurons.
-- **Studies in Synaptic Plasticity:** Experiment with different learning rules by modifying how weights are adjusted in the Python training script.
-
-## Getting Started
-
-Follow these steps to build and run the project on your local machine.
-
-### Prerequisites
-
-- A modern C++ compiler (GCC, Clang, MSVC)
-- [CMake](https://cmake.org/download/) (version 3.10+)
-- [Python](https://www.python.org/downloads/) (version 3.6+)
-
-### Installation
-
-1.  **Clone the repository (replace `YOUR_USERNAME`):**
-    ```bash
-    git clone https://github.com/YOUR_USERNAME/BrainHL.git
-    cd BrainHL
-    ```
-
-2.  **Install Python dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Build the C++ backend:**
-    ```bash
-    mkdir build
-    cd build
-    cmake ..
-    cmake --build . --config Release
-    ```
-    This will compile the backend and create the Python module (`brainhl_core.pyd` or similar) in the project's root directory.
-
-## Example: Language Classifier
-
-The project includes an example to classify words into semantic categories.
-
-1.  **Train the model:**
-    ```bash
-    python examples/python/train_classifier.py
-    ```
-    This script will read data from [`training_data.txt`](examples/python/training_data.txt), train the network, and save the learned weights to the `trained_models/` directory.
-
-2.  **Test the classifier:**
-    ```bash
-    python examples/python/test_classifier.py
-    ```
-    You can now enter words (e.g., `perro`, `libro`, `fuego`) and see how the network classifies them.
-
-## License
-
-This project is licensed under the Apache 2.0 License. See the [`LICENSE`](LICENSE) file for details.
-
-## Contributing
-
-Contributions are welcome! If you have ideas for new features, improvements, or have found a bug, please open an issue or submit a pull request.
+- **High-Performance Core:** The simulation engine is written in modern C++ for maximum speed and efficiency.
+- **Declarative Language:** Define complex network architectures easily using the simple and intuitive `.brainhl` file format.
+- **Command-Line Interpreter:** Use the standalone `bhl.exe` tool to quickly load and simulate network files.
+- **Python API:** Seamlessly integrate BrainHL into your Python workflows. Create, modify, and simulate networks on the fly.
+- **Easy Installation:** A simple Windows installer gets you up and running in minutes.
 
 ---
 
-*Project developed by Joaquín Stürtz (NetechAI) with the assistance of Cascade.*
+## 1. Installation
+
+The easiest way to install BrainHL is by using the official installer.
+
+1.  Go to the [**Releases**](https://github.com/NetechAI/BrainHL) page of this repository.
+2.  Download the latest installer, `BrainHL-0.1-Beta-setup.exe`.
+3.  Run the installer. We recommend checking the option **"Add application directory to your system PATH"** to make `bhl.exe` available from any terminal.
+
+## 2. Quick Start
+
+BrainHL can be used in two primary ways: via the command-line interpreter or as a Python module.
+
+### Using the Command-Line (`bhl.exe`)
+
+This is the simplest way to run a simulation from a file.
+
+```bash
+# Load and parse a network file
+bhl.exe path/to/your/network.brainhl
+
+# Show help message
+bhl.exe --help
+
+# Check version information
+bhl.exe --version
+```
+
+### Using the Python API
+
+The Python API provides full control over the network for dynamic scripting and integration.
+
+```python
+import brainhl
+
+# Create a network instance
+network = brainhl.DynamicNetwork()
+
+# Create a parser instance
+parser = brainhl.BrainHLParser()
+
+# Load a network from a file
+filepath = "path/to/your/network.brainhl"
+if parser.parse(filepath, network):
+    print(f"Network loaded successfully!")
+    print(f"  - Neurons: {network.getNeuronCount()}")
+    print(f"  - Connections: {len(network.getAllConnections())}")
+else:
+    print("Failed to load network.")
+
+# You can now interact with the network object
+# (e.g., add neurons, connections, run simulation steps, etc.)
+```
+
+## 3. The BrainHL Language
+
+BrainHL uses a simple, human-readable language to define network regions, neurons, and connections. For a complete guide on syntax and commands, please see our detailed documentation:
+
+- **[BrainHL Language Syntax Guide](docs/brainhl_syntax.md)**
+
+## 4. License
+
+This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+*Copyright (c) 2025 NetechAI*
+
+[version-shield]: https://img.shields.io/badge/version-0.1%20Beta-blue.svg
+[version-url]: https://github.com/NetechAI/BrainHL
+
+[license-shield]: https://img.shields.io/badge/License-Apache%202.0-green.svg
+[license-url]: LICENSE
